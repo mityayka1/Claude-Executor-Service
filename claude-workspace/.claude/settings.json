@@ -1,0 +1,20 @@
+{
+  "hooks": {
+    "PreToolUse": [],
+    "PostToolUse": []
+  },
+  "permissions": {
+    "allowedTools": [
+      "Read",
+      "Write(.claude/**)",
+      "Bash(python scripts/*)"
+    ],
+    "deny": [
+      "Read(.env*)",
+      "Write(../**)",
+      "Bash(rm *)",
+      "Bash(curl *)"
+    ]
+  },
+  "env": {}
+}

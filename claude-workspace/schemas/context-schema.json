@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ContextResult",
+  "description": "Schema for pre-interaction context briefing",
+  "type": "object",
+  "properties": {
+    "entityName": {
+      "type": "string",
+      "description": "Name of the person or organization"
+    },
+    "briefing": {
+      "type": "string",
+      "description": "Quick briefing (30-second read)"
+    },
+    "keyFacts": {
+      "type": "array",
+      "description": "Most important facts to remember",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 5
+    },
+    "lastInteraction": {
+      "type": "object",
+      "description": "Summary of last interaction",
+      "properties": {
+        "date": { "type": "string" },
+        "summary": { "type": "string" },
+        "outcome": { "type": "string" }
+      }
+    },
+    "openItems": {
+      "type": "array",
+      "description": "Open questions and pending items",
+      "items": {
+        "type": "object",
+        "properties": {
+          "item": { "type": "string" },
+          "priority": {
+            "type": "string",
+            "enum": ["high", "medium", "low"]
+          }
+        },
+        "required": ["item"]
+      }
+    },
+    "recommendations": {
+      "type": "array",
+      "description": "Recommendations for this interaction",
+      "items": {
+        "type": "string"
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "description": "Sensitive topics or warnings",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": ["entityName", "briefing"]
+}
