@@ -18,17 +18,32 @@ import configuration from './config/configuration';
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        type: 'postgres',
-        host: configService.get<string>('database.host'),
-        port: configService.get<number>('database.port'),
-        username: configService.get<string>('database.username'),
-        password: configService.get<string>('database.password'),
-        database: configService.get<string>('database.database'),
-        entities: [ClaudeCliRun],
-        synchronize: process.env.NODE_ENV !== 'production',
-        logging: process.env.NODE_ENV === 'development',
-      }),
+      useFactory: (configService: ConfigService) => {
+        const usePostgres = process.env.DATABASE_ENABLED !== 'false';
+
+        if (usePostgres) {
+          return {
+            type: 'postgres',
+            host: configService.get<string>('database.host'),
+            port: configService.get<number>('database.port'),
+            username: configService.get<string>('database.username'),
+            password: configService.get<string>('database.password'),
+            database: configService.get<string>('database.database'),
+            entities: [ClaudeCliRun],
+            synchronize: process.env.NODE_ENV !== 'production',
+            logging: process.env.NODE_ENV === 'development',
+          };
+        }
+
+        // SQLite in-memory fallback for testing without PostgreSQL
+        return {
+          type: 'sqlite',
+          database: ':memory:',
+          entities: [ClaudeCliRun],
+          synchronize: true,
+          logging: false,
+        };
+      },
     }),
     ExecutorModule,
     SchemasModule,
