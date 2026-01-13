@@ -28,12 +28,14 @@ export interface DatabaseConfig {
 
 export interface AppConfig {
   port: number;
+  apiKey: string | undefined;
   executor: ExecutorConfig;
   database: DatabaseConfig;
 }
 
 export default (): AppConfig => ({
   port: parseInt(process.env.PORT, 10) || 3000,
+  apiKey: process.env.API_KEY || undefined,
   executor: {
     paths: {
       claudeCliPath: process.env.CLAUDE_CLI_PATH || 'claude',
