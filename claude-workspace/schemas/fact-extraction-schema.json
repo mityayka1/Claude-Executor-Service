@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "FactExtractionResult",
+  "description": "Schema for extracting structured facts from text",
+  "type": "object",
+  "properties": {
+    "facts": {
+      "type": "array",
+      "description": "Array of extracted facts",
+      "items": {
+        "type": "object",
+        "properties": {
+          "factType": {
+            "type": "string",
+            "enum": ["position", "company", "department", "phone", "email", "telegram", "location", "birthday", "other"],
+            "description": "Type of the extracted fact"
+          },
+          "value": {
+            "type": "string",
+            "description": "The actual value of the fact"
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Confidence score (0.9 for explicit, 0.7 for implied)"
+          },
+          "sourceQuote": {
+            "type": "string",
+            "description": "Exact quote from the source text"
+          }
+        },
+        "required": ["factType", "value", "confidence", "sourceQuote"]
+      }
+    }
+  },
+  "required": ["facts"]
+}

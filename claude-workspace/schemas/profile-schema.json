@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ProfileResult",
+  "description": "Schema for aggregated relationship profile",
+  "type": "object",
+  "properties": {
+    "entityName": {
+      "type": "string",
+      "description": "Name of the person or organization"
+    },
+    "entityType": {
+      "type": "string",
+      "enum": ["person", "organization"],
+      "description": "Type of entity"
+    },
+    "currentInfo": {
+      "type": "object",
+      "description": "Current known information",
+      "properties": {
+        "position": { "type": "string" },
+        "company": { "type": "string" },
+        "department": { "type": "string" },
+        "contacts": {
+          "type": "object",
+          "properties": {
+            "email": { "type": "string" },
+            "phone": { "type": "string" },
+            "telegram": { "type": "string" }
+          }
+        },
+        "location": { "type": "string" }
+      }
+    },
+    "relationshipLevel": {
+      "type": "string",
+      "enum": ["cold", "warm", "hot"],
+      "description": "Current relationship temperature"
+    },
+    "interactionHistory": {
+      "type": "array",
+      "description": "Recent interaction summary",
+      "items": {
+        "type": "object",
+        "properties": {
+          "date": { "type": "string" },
+          "type": { "type": "string" },
+          "summary": { "type": "string" }
+        },
+        "required": ["summary"]
+      }
+    },
+    "commonInterests": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Shared interests or topics"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes"
+    }
+  },
+  "required": ["entityName", "entityType"]
+}

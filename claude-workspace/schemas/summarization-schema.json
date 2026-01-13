@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SummarizationResult",
+  "description": "Schema for conversation/document summarization",
+  "type": "object",
+  "properties": {
+    "summary": {
+      "type": "string",
+      "description": "Brief overall summary (1-2 sentences)"
+    },
+    "mainTopics": {
+      "type": "array",
+      "description": "Main topics discussed",
+      "items": {
+        "type": "string"
+      }
+    },
+    "keyDecisions": {
+      "type": "array",
+      "description": "Key decisions and agreements made",
+      "items": {
+        "type": "object",
+        "properties": {
+          "decision": {
+            "type": "string",
+            "description": "The decision or agreement"
+          },
+          "parties": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Parties involved"
+          }
+        },
+        "required": ["decision"]
+      }
+    },
+    "actionItems": {
+      "type": "array",
+      "description": "Action items and open questions",
+      "items": {
+        "type": "object",
+        "properties": {
+          "item": {
+            "type": "string",
+            "description": "The action item"
+          },
+          "assignee": {
+            "type": "string",
+            "description": "Person responsible (if known)"
+          },
+          "deadline": {
+            "type": "string",
+            "description": "Deadline (if mentioned)"
+          }
+        },
+        "required": ["item"]
+      }
+    },
+    "importantDates": {
+      "type": "array",
+      "description": "Important dates mentioned",
+      "items": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "description": "The date"
+          },
+          "context": {
+            "type": "string",
+            "description": "What the date refers to"
+          }
+        },
+        "required": ["date", "context"]
+      }
+    }
+  },
+  "required": ["summary", "mainTopics"]
+}
